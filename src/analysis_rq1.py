@@ -43,8 +43,13 @@ def analyze_rq1(pr_df, details_df):
 if __name__ == "__main__":
     set_academic_style()
     os.makedirs(OUTPUT_DIR, exist_ok=True)
+    timer = __import__('time').time
+    start_time = timer()
     pr_df_raw, pr_details_df_raw = load_data()
     pr_df, pr_details_df = preprocess_data(pr_df_raw, pr_details_df_raw)
     result_df = analyze_rq1(pr_df, pr_details_df)
+    end_time = timer()
+    total_time = end_time - start_time
     print(f"\nAnalysis complete! Results saved to {OUTPUT_DIR}/rq1_patch_characteristics.png")
     print(f"Analyzed {len(result_df)} PRs")
+    print(f"{total_time:.2f} seconds used for RQ1 analysis")

@@ -3,7 +3,7 @@
 
 ## What is this project?
 
-This project analyzes how different AI coding agents generate pull requests (PRs) when contributing to open-source software. Using the AIDev dataset from HuggingFace—which contains over 33,000 AI-generated pull requests and more than 700,000 file-level code modifications—we study whether these AI systems exhibit distinct coding patterns, patch characteristics, and semantic behaviors.
+This project analyzes how different AI coding agents generate pull requests (PRs) when contributing to open-source software. Using the [AIDev](https://huggingface.co/datasets/hao-li/AIDev) dataset from HuggingFace—which contains over 33,000 AI-generated pull requests and more than 700,000 file-level code modifications—we study whether these AI systems exhibit distinct coding patterns, patch characteristics, and semantic behaviors.
 
 ## Files and folders
 

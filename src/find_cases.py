@@ -1,3 +1,11 @@
+"""
+This script analyzes the AIDev dataset to identify representative Pull Request (PR) cases for qualitative analysis.
+It loads PR metadata and file modification details to filter for specific scenarios:
+1. Copilot Agent: Merged PRs that exclusively modify test files (Test-Only).
+2. Devin Agent: Merged PRs that involve substantial production code changes (>200 additions).
+The script prints the details of the found cases, including Repo URL, Title, Body, and File statistics.
+"""
+
 import pandas as pd
 import numpy as np
 

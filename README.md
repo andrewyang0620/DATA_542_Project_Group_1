@@ -47,6 +47,7 @@ Just run the analysis script:
 ```bash
 python src/analysis_rq1.py  # takes about 28 seconds for loading and processing
 python src/analysis_rq2.py  # takes about 236 seconds for loading and processing
+python src/analysis_rq3.py  # takes about 60 seconds for loading and processing
 ```
 
 This will:
@@ -111,3 +112,35 @@ This helps evaluate whether reviewers rely on semantic clarity when deciding whe
 
 
 The script creates box plots comparing the 5 AI agents and runs Kruskal-Wallis tests to check if the differences are real or just random variation.
+
+---
+
+### **RQ3 — File-Type Distribution (`analysis_rq3.py`)**
+
+For each PR, we examine which types of files the AI agent modifies. Unlike RQ1 (patch size) and RQ2 (semantic alignment), RQ3 focuses on the structural composition of code changes.
+
+Steps:
+
+1. Classify every changed file into one of four categories:
+   - Production (source files such as `.py`, `.js`, `.java`, `.cpp`)
+   - Test (filenames containing `test`, `spec`, `testing`)
+   - Config/Docs (`.md`, `.json`, `.yaml`, `.xml`, etc.)
+   - Other
+
+2. Count how many files of each type each PR modifies  
+3. Assign each PR to one patch category:
+   - Mixed (Code+Test)
+   - Production Only
+   - Test Only
+   - Other
+
+4. Build a **contingency table**
+5. Run a **chi-square independence test** to check whether different agents modify different types of files  
+6. Visualize the distribution using a **stacked horizontal bar plot**, showing percentage breakdown per agent
+
+This analysis reveals how AI agents differ in the kinds of work they perform within repositories.
+
+**Estimated running time:** **~60 seconds**
+**Output:** `analysis_results/rq3_fig_operational_profile.png`
+
+The results confirm that AI agents do not simply differ in patch size—they also differ in the structural patterns of the files they modify.

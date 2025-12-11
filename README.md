@@ -5,6 +5,18 @@
 
 This project analyzes how different AI coding agents generate pull requests (PRs) when contributing to open-source software. Using the [AIDev](https://huggingface.co/datasets/hao-li/AIDev) dataset from HuggingFace—which contains over 33,000 AI-generated pull requests and more than 700,000 file-level code modifications—we study whether these AI systems exhibit distinct coding patterns, patch characteristics, and semantic behaviors.
 
+## Contributions
+- Xuanrui Qiu
+    - Dataset early investigation and project topic selection
+    - RQ2 methodology design and code implementation
+    - RQ3 methodology design and code implementation
+    - For report, edited the abstract, introduction, and sections related to RQ2 and RQ3
+- Jingtao Yang
+    - Set up GitHub workflows, managed repo updates
+    - Design data extraction and cleaning metrics, with code implementation
+    - RQ1 methodology design and code implementation
+    - For report, edited the conclusion, contribution section, and sections related to data cleaning and RQ1
+  
 ## Files and folders
 
 ```

@@ -1,9 +1,15 @@
 import pandas as pd
 
 def preprocess_data(pr_df, pr_details_df):
+    """
+    Preprocess PR and commit details data
+    - Handle missing descriptions
+    - Flag outliers in additions, deletions, files changed
+    - Clean commit details
+    """
     pr = pr_df.copy()
     details = pr_details_df.copy()
-
+    # Handle missing descriptions
     pr['body'] = pr['body'].fillna('[No description]')
     pr['body'] = pr['body'].apply(lambda x: '[No description]' if str(x).strip() == '' else x)
     pr['has_description'] = pr['body'] != '[No description]'
@@ -16,6 +22,7 @@ def preprocess_data(pr_df, pr_details_df):
     }).reset_index()
     
     pr_metrics = pr_metrics.rename(columns={'filename': 'files_changed'})
+    # Identify outliers using IQR method
     for col in ['additions', 'deletions', 'files_changed']:
         Q1 = pr_metrics[col].quantile(0.25)
         Q3 = pr_metrics[col].quantile(0.75)

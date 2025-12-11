@@ -10,6 +10,10 @@ from data_preprocessing import preprocess_data
 OUTPUT_DIR = "analysis_results"
 
 def analyze_rq1(pr_df, details_df):
+    """
+    main analysis function for RQ1
+    Analyze patch characteristics: additions, deletions, unique files touched
+    """
     print("\n--- RQ1: Patch Characteristics ---")
     print("\n")
 
@@ -27,6 +31,7 @@ def analyze_rq1(pr_df, details_df):
 
     fig, axes = plt.subplots(1, 3, figsize=(16, 6))
 
+    # Plot boxplots and perform Kruskal-Wallis tests
     for i, metric in enumerate(metrics):
         sns.boxplot(x='agent', y=metric, data=analysis_df, hue='agent', palette=COLORS, ax=axes[i], showfliers=False, legend=False)
         axes[i].set_title(metric)
@@ -44,6 +49,7 @@ if __name__ == "__main__":
     set_academic_style()
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     timer = __import__('time').time
+    # timer for running time
     start_time = timer()
     pr_df_raw, pr_details_df_raw = load_data()
     pr_df, pr_details_df = preprocess_data(pr_df_raw, pr_details_df_raw)

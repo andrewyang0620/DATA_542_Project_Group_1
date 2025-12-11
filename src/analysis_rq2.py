@@ -13,6 +13,10 @@ OUTPUT_DIR = "analysis_results"
 
 
 def analyze_rq2(pr_df: pd.DataFrame, details_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    main analysis function for RQ2
+    Analyze description consistency with code changes
+    """
     print("\n--- Analyzing RQ2: Description Consistency ---")
     print(f"Columns in pr_df for RQ2: {pr_df.columns}")
  
@@ -28,7 +32,6 @@ def analyze_rq2(pr_df: pd.DataFrame, details_df: pd.DataFrame) -> pd.DataFrame:
     
     tfidf = TfidfVectorizer(stop_words='english', max_features=1000)
     print("Computing TF-IDF similarities, may take some time...")
-    
     all_text = pd.concat([analysis_df['text_desc'], analysis_df['patch']])
     tfidf.fit(all_text)
     
@@ -37,7 +40,7 @@ def analyze_rq2(pr_df: pd.DataFrame, details_df: pd.DataFrame) -> pd.DataFrame:
 
     sim_scores = np.array(desc_matrix.multiply(patch_matrix).sum(axis=1)).flatten()
     analysis_df['similarity'] = sim_scores
-    
+    # Determine merge status
     if 'merged_at' in analysis_df.columns:
         analysis_df['is_merged'] = analysis_df['merged_at'].notna()
     elif 'merged_at_x' in analysis_df.columns:
@@ -62,6 +65,7 @@ def analyze_rq2(pr_df: pd.DataFrame, details_df: pd.DataFrame) -> pd.DataFrame:
     plt.savefig(f"{OUTPUT_DIR}/rq2_similarity_consistency.png")
 
     print("Statistical Tests for RQ2:")
+    # perform statistical tests
     for agent in analysis_df['agent'].unique():
         merged = analysis_df[
             (analysis_df['agent'] == agent) &
@@ -81,6 +85,7 @@ def analyze_rq2(pr_df: pd.DataFrame, details_df: pd.DataFrame) -> pd.DataFrame:
 if __name__ == "__main__":
     set_academic_style()
     os.makedirs(OUTPUT_DIR, exist_ok=True)
+    # timer for running time, rq2 can take a while
     timer = __import__('time').time
     start_time = timer()
     pr_df_raw, pr_details_df_raw = load_data()
